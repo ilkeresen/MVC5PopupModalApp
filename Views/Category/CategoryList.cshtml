@@ -1,0 +1,67 @@
+﻿@model IEnumerable<MVC5Library.Models.TBLCategory>
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <h3 class="card-title">
+            <i class="fas fa-check-double"></i>
+            Kategoriler
+        </h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Kategori Adı</th>
+                    <th>Kategori Sil</th>
+                    <th>Kategori Güncelle</th>
+                    <th>Kategori Detay</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int i = 0; }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(++i)</td>
+                        <td>@item.CategoryName</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-danger CategoryDelete" id="@item.CategoryID" data-id="@item.CategoryID" data-toggle="modal" data-target="#modal-delete">
+                                <i class="fas fa-backspace"></i>
+                                Sil
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-info CategoryUpdate" id="@item.CategoryID" data-id="@item.CategoryID" data-toggle="modal" data-target="#modal-update">
+                                <i class="fas fa-edit"></i>
+                                Güncelle
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-success CategoryDetail" id="@item.CategoryID" data-id="@item.CategoryID" data-toggle="modal" data-target="#modal-detail">
+                                <i class="fas fa-eye"></i>
+                                Detay
+                            </button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>Kategori Adı</th>
+                    <th>Kategori Sil</th>
+                    <th>Kategori Güncelle</th>
+                    <th>Kategori Detay</th>
+                </tr>
+            </tfoot>
+        </table>
+        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal-add">
+            <i class="fas fa-plus"></i>
+            Yeni Kategori Ekle
+        </button>
+    </div>
+    <!-- /.card-body -->
+</div>

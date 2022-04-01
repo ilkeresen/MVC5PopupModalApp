@@ -1,0 +1,149 @@
+﻿@using MVC5Library.Models
+@model List<TBLCategory>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-@TempData["alert"] alert-dismissible fade show">
+                <button style="color:white" type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas @TempData["icon"]"></i>@TempData["item"]</h5>
+                <strong>@TempData["message"]</strong>
+            </div>
+        }
+    </div>
+</div>
+
+
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        @Html.Action("CategoryList", "Category")
+    </div><!--/. container-fluid -->
+</section>
+<!-- /.content -->
+
+<!-- UPDATE MODAL -->
+<div class="modal fade" id="modal-update" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title">Kategori Güncelle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="CategoryUpdateForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="CategoryID">Kategori ID</label>
+                        <input class="form-control" type="text" id="UpdateCategoryID" name="CategoryID" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoryName">Kategori Ad</label>
+                        <input class="form-control" type="text" id="UpdateCategoryName" name="CategoryName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoryDetail">Kategori Detay</label>
+                        <textarea class="form-control" type="text" id="UpdateCategoryDetail" name="CategoryDetail"></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <input type="button" id="CategoryUpdate" class="btn btn-info" value="Kategori Güncelle" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal fade" id="modal-add" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title">Kategori Ekle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="CategoryAddForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="CategoryName">Kategori Ad</label>
+                        <input class="form-control" type="text" id="CategoryName" name="CategoryName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoryDetail">Kategori Detay</label>
+                        <textarea class="form-control" type="text" id="CategoryDetail" name="CategoryDetail"></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <input type="button" id="CategoryAdd" class="btn btn-dark" value="Kategori Ekle" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DETAİL MODAL -->
+<div class="modal fade" id="modal-detail" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h4 class="modal-title">Kategori Detay</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="CategoryID">Kategori ID</label>
+                        <input class="form-control" type="text" id="DetailCategoryID" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoryName">Kategori Ad</label>
+                        <input class="form-control" type="text" id="DetailCategoryName" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoryDetail">Kategori Detay</label>
+                        <textarea class="form-control" type="text" id="DetailCategoryDetail" readonly></textarea>
+                    </div>
+                </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="modal-delete" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h4 class="modal-title">Emin Misin?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <strong>Seçtiğiniz Kategori silinecektir.</strong>
+                <input type="hidden" name="CategoryID" id="CategoryID" />
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <input type="button" id="CategoryDelete" class="btn btn-danger" value="Kategori Sil" />
+            </div>
+        </div>
+    </div>
+</div>

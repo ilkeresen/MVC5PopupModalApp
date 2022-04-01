@@ -1,0 +1,199 @@
+﻿@using MVC5Library.Models
+@model List<TBLAuthor>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-@TempData["alert"] alert-dismissible fade show">
+                <button style="color:white" type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas @TempData["icon"]"></i>@TempData["item"]</h5>
+                <strong>@TempData["message"]</strong>
+            </div>
+        }
+    </div>
+</div>
+
+
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        @Html.Action("AuthorList", "Author")
+    </div><!--/. container-fluid -->
+</section>
+<!-- /.content -->
+<!-- UPDATE MODAL -->
+<div class="modal fade" id="modal-update" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title"><i class="fas fa-edit"></i> Yazar Güncelle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="AuthorUpdateForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="AuthorID">Yazar ID</label>
+                        <input class="form-control" type="text" id="UpdateAuthorID" name="AuthorID" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="AuthorName">Yazar Ad</label>
+                        <input class="form-control" type="text" id="UpdateAuthorName" name="AuthorName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="AuthorName">Yazar Soyad</label>
+                        <input class="form-control" type="text" id="UpdateAuthorSurname" name="AuthorSurname" />
+                    </div>
+                    <div class="form-group">
+                        <label for="AuthorDetail">Yazar Detay</label>
+                        <textarea class="form-control" type="text" id="UpdateAuthorDetail" name="AuthorDetail"></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <input type="button" id="AuthorUpdate" class="btn btn-info" value="Yazar Güncelle" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal fade" id="modal-add" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title"><i class="fas fa-pen-nib"></i> Yazar Ekle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="AuthorAddForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="CategoryName">Yazar Ad</label>
+                        <input class="form-control" type="text" id="AuthorName" name="AuthorName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoryDetail">Yazar Soyad</label>
+                        <input class="form-control" type="text" id="AuthorSurname" name="AuthorSurname" />
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoryDetail">Yazar Detay</label>
+                        <input class="form-control" type="text" id="AuthorDetail" name="AuthorDetail" />
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <input type="button" id="AuthorAdd" class="btn btn-dark" value="Yazar Ekle" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DETAİL MODAL -->
+<div class="modal fade" id="modal-detail" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h4 class="modal-title"><i class="fas fa-eye"></i> Yazar Detay</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="AuthorID">Yazar ID</label>
+                    <input class="form-control" type="text" id="DetailAuthorID" name="DetailAuthorID" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="AuthorName">Yazar Ad</label>
+                    <input class="form-control" type="text" id="DetailAuthorName" name="DetailAuthorName" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="AuthorName">Yazar Soyad</label>
+                    <input class="form-control" type="text" id="DetailAuthorSurname" name="DetailAuthorSurname" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="AuthorDetail">Yazar Detay</label>
+                    <textarea class="form-control" type="text" id="DetailAuthorDetail" name="DetailAuthorDetail" readonly></textarea>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="modal-delete" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h4 class="modal-title"><i class="fas fa-backspace"></i> Emin Misin?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <strong>Seçtiğiniz Yazar silinecektir.</strong>
+                <input type="hidden" name="AuthorID" id="AuthorID" />
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <input type="button" id="AuthorDelete" class="btn btn-danger" value="Yazar Sil" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BOOKS MODAL -->
+<div class="modal fade" id="modal-book" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title"><i class="fas fa-book"></i> Yazar Kitapları</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kitap Adı</th>
+                            <th>Yazar Adı Soyadı</th>
+                            <th>Kitap Yayınevi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="AuthorBook">
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Kitap Adı</th>
+                            <th>Yazar Adı Soyadı</th>
+                            <th>Kitap Yayınevi</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+            </div>
+        </div>
+    </div>
+</div>

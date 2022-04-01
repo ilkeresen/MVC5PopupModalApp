@@ -1,0 +1,82 @@
+﻿@model IEnumerable<MVC5Library.Models.TBLBook>
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <h3 class="card-title">
+            <i class="fas fa-book"></i>
+            Kitaplar
+        </h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Kitap Ad</th>
+                    <th>Kitap Yazar</th>
+                    <th>Kitap Kategori</th>
+                    <th>Kitap Basım Yılı</th>
+                    <th>Kitap Yayınevi</th>
+                    <th>Kitap Sayfa Sayısı</th>
+                    <th>Kitap Sil</th>
+                    <th>Kitap Güncelle</th>
+                    <th>Kitap Detay</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int i = 0; }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(++i)</td>
+                        <td>@item.BookName</td>
+                        <td>@item.TBLAuthor.AuthorName @item.TBLAuthor.AuthorSurname</td>
+                        <td>@item.TBLCategory.CategoryName</td>
+                        <td>@item.BookPublicationYear</td>
+                        <td>@item.BookPublisher</td>
+                        <td>@item.BookPageNumber</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-danger BookDelete" id="@item.BookID" data-id="@item.BookID" data-toggle="modal" data-target="#modal-delete">
+                                <i class="fas fa-backspace"></i>
+                                Sil
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-info BookUpdate" id="@item.BookID" data-id="@item.BookID" data-toggle="modal" data-target="#modal-update">
+                                <i class="fas fa-edit"></i>
+                                Güncelle
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-success BookDetail" id="@item.BookID" data-id="@item.BookID" data-toggle="modal" data-target="#modal-detail">
+                                <i class="fas fa-eye"></i>
+                                Detay
+                            </button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>Kitap Ad</th>
+                    <th>Kitap Yazar</th>
+                    <th>Kitap Kategori</th>
+                    <th>Kitap Basım Yılı</th>
+                    <th>Kitap Yayınevi</th>
+                    <th>Kitap Sayfa Sayısı</th>
+                    <th>Kitap Sil</th>
+                    <th>Kitap Güncelle</th>
+                    <th>Kitap Detay</th>
+                </tr>
+            </tfoot>
+        </table>
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modal-add">
+            Yeni Kitap Ekle
+        </button>
+    </div>
+    <!-- /.card-body -->
+</div>
+

@@ -1,0 +1,75 @@
+﻿@model MVC5Library.Models.TBLBook
+@{
+    ViewBag.Title = "BookAdd";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card card-gray-dark">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-plus"></i> Yeni Kitap Ekle</h3>
+                </div>
+            </div>
+            <form method="post">
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="BookName">Kitap Adı</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-book"></i></span>
+                            </div>
+                            @Html.TextBoxFor(x => x.BookName, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="BookCategory">Kitap Kategorisi</label>
+                        @Html.DropDownListFor(x => x.BookCategory, (List<SelectListItem>)ViewBag.Category, "Kategori Seçiniz", new { @id = "BookCategory", @class = "form-control select2" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="BookAuthor">Kitap Yazarı</label>
+                        @Html.DropDownListFor(x => x.BookAuthor, (List<SelectListItem>)ViewBag.Author, "Yazar Seçiniz", new { @id = "BookAuthor", @class = "form-control select2" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="BookPublicationYear">Kitap Basım Yılı</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                            </div>
+                            @Html.TextBoxFor(x => x.BookPublicationYear, new { @id = "basimyili", @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="BookPublisher">Kitap Yayınevi</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-home"></i></span>
+                            </div>
+                            @Html.TextBoxFor(x => x.BookPublisher, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="BookPageNumber">Kitap Sayfa Sayısı</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                            </div>
+                            @Html.TextBoxFor(x => x.BookPageNumber, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <button type="submit" class="btn btn-dark"><i class="fas fa-folder-plus"></i> Yeni Kitap Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>

@@ -1,0 +1,115 @@
+﻿@using MVC5Library.Models
+@model List<TBLAdmin>
+<!-- Default box -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-user-edit"></i> Yetkililer Tablosu</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="example1" class="table table-hover projects">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Yetkili E-Posta
+                    </th>
+                    <th>
+                        Yetkili Resim
+                    </th>
+                    <th>
+                        Yetkili Yetki
+                    </th>
+                    <th style="text-align:center;">
+                        Yetkili Durum
+                    </th>
+                    <th style="text-align:right;">
+                        Yetkili İşlemler
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int i = 0; }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @(++i)
+                        </td>
+                        <td>
+                            @item.AdminMail
+                        </td>
+                        <td>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <img alt="Avatar" class="table-avatar" src="@item.AdminPhoto">
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="project_progress">
+                            @item.AdminRol
+                        </td>
+                        <td class="project-state">
+                            @if (item.AdminStatus == true)
+                            {
+                                <span class="badge badge-success">Aktif</span>
+                            }
+                            @if (item.AdminStatus == false)
+                            {
+                                <span class="badge badge-danger">Pasif</span>
+                            }
+                        </td>
+                        <td class="project-actions text-right">
+                            <button type="button" class="btn btn-danger btn-sm SettingsDelete" id="@item.AdminID" data-id="@item.AdminID" data-toggle="modal" data-target="#modal-delete">
+                                <i class="fas fa-trash"></i>
+                                Sil
+                            </button>
+                            <button type="button" class="btn btn-info btn-sm SettingsEdit" id="@item.AdminID" data-id="@item.AdminID" data-toggle="modal" data-target="#modal-edit">
+                                <i class="fas fa-edit"></i>
+                                Güncelle
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Yetkili E-Posta
+                    </th>
+                    <th>
+                        Yetkili Resim
+                    </th>
+                    <th>
+                        Yetkili Yetki
+                    </th>
+                    <th style="text-align:center;">
+                        Yetkili Durum
+                    </th>
+                    <th style="text-align:right;">
+                        Yetkili İşlemler
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal-add">
+            <i class="fas fa-plus"></i>
+            Yeni Yetkili Ekle
+        </button>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->

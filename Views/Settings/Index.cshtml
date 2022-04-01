@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Ayarlar</h1>
+            </div>
+        </div>
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-@TempData["alert"] alert-dismissible fade show">
+                <button style="color:white" type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas @TempData["icon"]"></i>@TempData["item"]</h5>
+                <strong>@TempData["message"]</strong>
+            </div>
+        }
+    </div><!-- /.container-fluid -->
+
+<!-- Main content -->
+<section class="content">
+
+    @Html.Action("SettingsList", "Settings")
+
+</section>
+<!-- /.content -->
+
+<!-- UPDATE MODAL -->
+<div class="modal fade" id="modal-edit" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title"><i class="fas fa-edit"></i> Yetkili Güncelle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="AdminUpdateForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="AdminMail">Yetkili ID</label>
+                        <input class="form-control" type="text" id="UpdateAdminID" name="AdminID" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="AdminMail">Yetkili E-Posta</label>
+                        <input class="form-control" type="text" id="UpdateAdminMail" name="AdminMail" />
+                    </div>
+                    <div class="form-group">
+                        <label for="AdminRol">Yetkili Yetki</label>
+                        <input class="form-control" type="text" id="UpdateAdminRol" name="AdminRol" />
+                    </div>
+                    <div class="form-group">
+                        <label for="AdminPassword">Yetkili Şifre</label>
+                        <input class="form-control" type="text" id="UpdateAdminPassword" name="AdminPassword" />
+                    </div>
+                    <div class="form-group">
+                        <label>Yetkili Resmi</label>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto1">
+                                    <img alt="Avatar" for="UserPhoto1" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar1.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto1" value="~/AdminTema/dist/img/admin/adminavatar1.png" checked />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto2">
+                                    <img alt="Avatar" for="AdminPhoto2" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar2.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto2" value="~/AdminTema/dist/img/admin/adminavatar2.png" />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto3">
+                                    <img alt="Avatar" for="AdminPhoto3" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar3.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto3" value="~/AdminTema/dist/img/admin/adminavatar3.png" />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto4">
+                                    <img alt="Avatar" for="AdminPhoto4" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar4.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto4" value="~/AdminTema/dist/img/admin/adminavatar4.png" />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto5">
+                                    <img alt="Avatar" for="AdminPhoto5" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar5.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto5" value="~/AdminTema/dist/img/admin/adminavatar5.png" />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto6">
+                                    <img alt="Avatar" for="AdminPhoto6" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar6.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto6" value="~/AdminTema/dist/img/admin/adminavatar6.png" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label for="AdminStatus">Yetkili Durum</label>
+                        <select name="AdminStatus" class="form-control">
+                            <option selected value="True">Aktif</option>
+                            <option value="False">Pasif</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <input type="button" id="AdminUpdate" class="btn btn-info" value="Yetkili Güncelle" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal fade" id="modal-add" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title"><i class="fas fa-pen-nib"></i> Yetkili Ekle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="AdminAddForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="AdminMail">Yetkili E-Posta</label>
+                        <input class="form-control" type="text" id="AdminMail" name="AdminMail" />
+                    </div>
+                    <div class="form-group">
+                        <label for="AdminRol">Yetkili Yetki</label>
+                        <input class="form-control" type="text" id="AdminRol" name="AdminRol" />
+                    </div>
+                    <div class="form-group">
+                        <label for="AdminPassword">Yetkili Şifre</label>
+                        <input class="form-control" type="text" id="AdminPassword" name="AdminPassword" />
+                    </div>
+                    <div class="form-group">
+                        <label>Yetkili Resmi</label>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto7">
+                                    <img alt="Avatar" for="AdminPhoto7" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar1.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto7" value="~/AdminTema/dist/img/admin/adminavatar1.png" checked />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto8">
+                                    <img alt="Avatar" for="AdminPhoto8" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar2.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto8" value="~/AdminTema/dist/img/admin/adminavatar2.png" />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto9">
+                                    <img alt="Avatar" for="AdminPhoto9" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar3.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto9" value="~/AdminTema/dist/img/admin/adminavatar3.png" />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto10">
+                                    <img alt="Avatar" for="AdminPhoto10" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar4.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto10" value="~/AdminTema/dist/img/admin/adminavatar4.png" />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto11">
+                                    <img alt="Avatar" for="AdminPhoto11" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar5.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto11" value="~/AdminTema/dist/img/admin/adminavatar5.png" />
+                            </li>
+                            <li class="list-inline-item">
+                                <label for="AdminPhoto12">
+                                    <img alt="Avatar" for="AdminPhoto12" class="img-circle img-size-64" src="~/AdminTema/dist/img/admin/adminavatar6.png">
+                                </label>
+                                <input type="radio" name="AdminPhoto" id="AdminPhoto12" value="~/AdminTema/dist/img/admin/adminavatar6.png" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <input type="button" id="AdminAdd" class="btn btn-dark" value="Yetkili Ekle" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="modal-delete" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h4 class="modal-title"><i class="fas fa-trash"></i> Emin Misin?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <strong>Seçtiğiniz Yetkili silinecektir.</strong>
+                <input type="hidden" name="AdminID" id="AdminID" />
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <input type="button" id="AdminDelete" class="btn btn-danger" value="Yetkili Sil" />
+            </div>
+        </div>
+    </div>
+</div>

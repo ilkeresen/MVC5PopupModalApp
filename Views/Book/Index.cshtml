@@ -1,0 +1,121 @@
+﻿@using MVC5Library.Models
+@model List<TBLBook>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-@TempData["alert"] alert-dismissible fade show">
+                <button style="color:white" type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas @TempData["icon"]"></i>@TempData["item"]</h5>
+                <strong>@TempData["message"]</strong>
+            </div>
+        }
+    </div>
+</div>
+
+
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h3 class="card-title">
+                    <i class="fas fa-book"></i>
+                    Kitaplar
+                </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kitap Ad</th>
+                            <th>Kitap Yazar</th>
+                            <th>Kitap Kategori</th>
+                            <th>Kitap Basım Yılı</th>
+                            <th>Kitap Yayınevi</th>
+                            <th>Kitap Durum</th>
+                            <th>Kitap Sil</th>
+                            <th>Kitap Güncelle</th>
+                            @*<th>Kitap Detay</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 0; }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(++i)</td>
+                                <td>@item.BookName</td>
+                                <td>@item.TBLAuthor.AuthorName @item.TBLAuthor.AuthorSurname</td>
+                                <td>@item.TBLCategory.CategoryName</td>
+                                <td>@item.BookPublicationYear</td>
+                                <td>@item.BookPublisher</td>
+                                <td align="center">
+                                    @if (item.BookStatus == false)
+                                    {
+                                        <button type="button" class="btn btn-danger btn-circle btn-sm"></button>
+                                    }
+                                    @if (item.BookStatus == true)
+                                    {
+                                        <button type="button" class="btn btn-success btn-circle btn-sm"></button>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="/Book/BookDelete/@item.BookID" class="btn btn-outline-danger">
+                                        <i class="fas fa-backspace"></i>
+                                        Sil
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/Book/BookUpdate/@item.BookID" class="btn btn-outline-info">
+                                        <i class="fas fa-edit"></i>
+                                        Güncelle
+                                    </a>
+                                </td>
+                                @*<td>
+                                    <a href="/Book/BookDetail/@item.BookID" class="btn btn-outline-success">
+                                        <i class="fas fa-eye"></i>
+                                        Detay
+                                    </a>
+                                </td>*@
+                            </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Kitap Ad</th>
+                            <th>Kitap Yazar</th>
+                            <th>Kitap Kategori</th>
+                            <th>Kitap Basım Yılı</th>
+                            <th>Kitap Yayınevi</th>
+                            <th>Kitap Durum</th>
+                            <th>Kitap Sil</th>
+                            <th>Kitap Güncelle</th>
+                            @*<th>Kitap Detay</th>*@
+                        </tr>
+                    </tfoot>
+                </table>
+                <a href="/Book/BookAdd/" class="btn btn-outline-dark">
+                    <i class="fas fa-plus"></i>
+                    Yeni Kitap Ekle
+                </a>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        @*@Html.Action("BookList", "Book")*@
+    </div><!--/. container-fluid -->
+</section>
+<!-- /.content -->
